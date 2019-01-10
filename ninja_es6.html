@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ES6 - Ninja</title>
+</head>
+<body>
+  <div class="container">
+    Hello!
+  </div>
+  <script>
+    class Ninja{
+      constructor(name){
+        this.name = name;
+        this.health = 100;
+        this.speed = 3;
+        this.strength = 3;
+      }
+      sayName(){
+        console.log(`My ninja's name is ${this.name}`);
+      }
+      showStats(){
+        console.log(`Name: ${this.name}, Health: ${this.health}, Speed: ${this.speed}, Strength: ${this.strength}`);
+      }
+      drinkSake(){
+        this.health += 10;
+      }
+      punch(num, other){
+        other.health -= num;
+      }
+      kick(other){
+        this.health -= 15;
+        other.health += 1;
+      }
+    }
+
+    class Sensei extends Ninja {
+      constructor(name) {
+        super(name);
+        this.health = 200;
+        this.speed = 10;
+        this.strength = 10;
+        this.wisdom = 10;
+      }
+      speakWisdom(){
+        super.drinkSake();
+        console.log(`What one programmer can do in one month, two programmers can do in two months.`);
+      }
+}
+    const ninja1 = new Ninja("ninja1");
+    ninja1.sayName();
+    ninja1.showStats();
+    ninja1.drinkSake(); //health +10
+    console.log(ninja1.health); //110
+
+    const ninja2 = new Ninja("ninja2");
+    ninja2.punch(5, ninja1);
+    ninja2.showStats();
+    console.log(ninja1.health); //health -5 = 105
+
+    ninja1.kick(ninja2);
+    ninja2.showStats();
+    console.log(ninja1.health);
+    console.log(ninja2.health);
+
+    const superSensei = new Sensei("Panda");
+    superSensei.showStats();
+    superSensei.speakWisdom();
+    superSensei.showStats();
+  </script>
+</body>
+</html>

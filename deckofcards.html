@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Deck of Cards</title>
+</head>
+<body>
+  <script>
+    class Card{
+      constructor(name,suit,val){
+        this.name = name;
+        this.suit = suit;
+        this.val = val;
+      }
+      showCard(){
+        console.log(`card name: ${this.name}, card suit: ${this.suit}, card value: ${this.val}`);
+      }
+    }
+
+    class Deck{
+      constructor(){
+        this.suit = ["Hearts", "Clubs", "Spades", "Diamonds"];
+        this.name = ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"];
+        this.deck = [];
+      }
+      makeDeck(){
+        for(var i = 0; i < this.suit.length; i++){
+          for(var j = 0; j< this.name.length; j++){
+            var new_card = new Card(this.name[j], this.suit[i], j+1);
+            // console.log(new_card);
+            this.deck.push(new_card);
+          }
+        }
+        // console.log(this.deck);
+        return this.deck;
+      }
+      shuffle(){
+        var new_deck = [], n = this.deck.length, s;
+        while(n > 0){
+          s = Math.floor(Math.random()* n);
+          new_deck.push(this.deck.splice(s,1)[0]);
+        }
+        // console.log(new_deck);
+        return new_deck;
+      }
+      reset(){
+        this.deck =[];
+      }
+      deal(){
+        if (this.deck.length > 0) {
+          // console.log(this.deck.shift());
+          // console.log(this.deck);
+          return this.deck.shift();
+        }
+        else 
+          {return null;}
+      }
+    }
+
+    class Player{
+      constructor(name, hand){
+        this.name = name;
+        this.hand = [];
+      }
+      getHand(deck){
+        this.hand.push(deck.deal());
+        return this.hand;
+      }
+      drawCard(deck){
+        this.hand.push(deck.deal());
+        console.log(this.hand);
+        return this.hand;
+      }
+      discardCard(x){
+        return this.hand.splice(x,1);
+      }
+    }
+    const card1 = new Card("Ace", "Hearts", "1");
+    card1.showCard();
+
+    const deck1 = new Deck();
+    deck1.makeDeck();
+    // deck1.shuffle();
+    // deck1.deal();
+
+    const player1 = new Player("Matt");
+    player1.getHand(deck1);
+
+  </script>
+</body>
+</html>
